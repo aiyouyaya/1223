@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>知识图谱</title>
+    <style>
+        :root {
+            --main-color: #2c3e50;
+            --accent-color: #3498db;
+        }
+
+        body {
+            background: #ecf0f1;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+        }
+        .center-icon {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            top: 25%;
+            background: linear-gradient(45deg, var(--accent-color), #2980b9);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .center-icon:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        .knowledge-box {
+            position: absolute;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 240px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .knowledge-box.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .box1 { top: 5%; left: 50%; transform: translateX(-50%); }
+        .box2 { top: 50%; left: 5%; transform: translateY(-50%); }
+        .box3 { top: 50%; right: 5%; transform: translateY(-50%); }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
+        li:hover {
+            transform: translateX(10px);
+            background: var(--accent-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="center-icon"></div>
+        <div class="knowledge-box box1 active">
+            <ul>
+                <li>CSS定位原理</li>
+                <li>z-index层叠规则</li>
+                <li>相对定位特性</li>
+            </ul>
+        </div>
+        <div class="knowledge-box box2 active">
+            <ul>
+                <li>Flex布局基础</li>
+                <li>Grid布局应用</li>
+                <li>响应式设计原则</li>
+            </ul>
+        </div>
+        <div class="knowledge-box box3 active">
+            <ul>
+                <li>盒模型解析</li>
+                <li>浮动与清除</li>
+                <li>BFC机制</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

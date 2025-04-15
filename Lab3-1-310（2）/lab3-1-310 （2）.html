@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>科技新闻日报</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui;
+            background: #f0f2f5;
+            line-height: 1.6;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #2563eb;
+            margin: 10px auto;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+        .main-content {
+            display: grid;
+            gap: 40px;
+        }
+
+        .news-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2563eb;
+        }
+
+        .news-article {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        .news-article:last-child {
+            border: none;
+        }
+
+        .article-title {
+            color: #1e3a8a;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+        .article-image:hover {
+            transform: scale(1.03);
+        }
+
+        .meta-info {
+            color: #666;
+            font-size: 0.9em;
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .sidebar {
+            display: grid;
+            gap: 40px;
+        }
+
+        .hot-news {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .hot-tag {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #3b82f6;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .hot-link {
+            display: block;
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+        .hot-link:hover {
+            color: #3b82f6;
+        }
+
+        .special-column {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            .article-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1 class="page-title">科技前沿动态</h1>
+        
+        <div class="content-wrapper">
+            <div class="main-content">
+                <section class="news-section">
+                    <h2 class="section-title">最新要闻</h2>
+                    <article class="news-article">
+                        <h3 class="article-title">量子计算突破：实现百万量子位稳定运行</h3>
+                        <div class="image-grid">
+                            <img src= "logo.jpg"class="article-image" alt="量子计算机">
+                            <img src='logo2.jpg'https://source.unsplash.com/random/800x600?lab" class="article-image" alt="实验室">
+                        </div>
+                        <div class="meta-info">
+                            <span>作者：王科伟</span>
+                            <span>2023-08-21</span>
+                            <span>阅读量：2.3万</span>
+                        </div>
+                    </article>
+                </section>
+                <section class="news-section special-column">
+                    <h2 class="section-title">专题报道</h2>
+                    <article class="news-article">
+                        <h3 class="article-title">元宇宙发展白皮书发布</h3>
+                        <div class="image-grid">
+                            <img src="logo3.jpg"https://source.unsplash.com/random/800x600?metaverse" class="article-image">
+                            <img src="logo4.jpg"https://source.unsplash.com/random/800x600?vr" class="article-image">
+                        </div>
+                        <div class="meta-info">
+                            <span>作者：数字前沿</span>
+                            <span>2023-08-20</span>
+                            <span>深度报道</span>
+                        </div>
+                    </article>
+                </section>
+            </div>
+            <div class="sidebar">
+                <div class="hot-news">
+                    <span class="hot-tag">24小时热榜</span>
+                    <a href="#" class="hot-link">2023全球人工智能峰会精彩回顾</a>
+                    <img src='logo5.jpg'https://source.unsplash.com/random/600x400?ai" class="article-image">
+                </div>
+                <div class="hot-news">
+                    <span class="hot-tag">读者精选</span>
+                    <a href="#" class="hot-link">脑机接口新突破：意念打字速度提升300%</a>
+                    <img src="logo6.jpg"https://source.unsplash.com/random/600x400?brain" class="article-image">
+                </div>
+                <div class="hot-news">
+                    <span class="hot-tag">科技快讯</span>
+                    <a href="#" class="hot-link">SpaceX成功发射第100枚火箭</a>
+                    <img src="logo7.jpg"https://source.unsplash.com/random/600x400?rocket" class="article-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+在这个代码的基础上，给我整个能跳转的超链接
