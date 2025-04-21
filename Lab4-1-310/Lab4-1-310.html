@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh - CN">
+
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历表单</title>
+    <style>
+        /* 全局样式设置 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="number"] {
+            width: 80px;
+        }
+
+        input[type="file"] {
+            padding: 4px;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        #preview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <caption>个人简历</caption>
+        <tr>
+            <th>姓名</th>
+            <td><input type="text" placeholder="请输入姓名" maxlength="30"></td>
+            <th>性别</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select></td>
+            <th>年龄</th>
+            <td><input type="number" placeholder="请输入年龄" min="18" max="60"></td>
+        </tr>
+        <tr>
+            <th>籍贯</th>
+            <td><input type="text" placeholder="请输入籍贯" maxlength="50"></td>
+            <th>联系电话</th>
+            <td><input type="tel" placeholder="请输入联系电话" maxlength="15"></td>
+            <th>电子邮箱</th>
+            <td><input type="email" placeholder="请输入电子邮箱" maxlength="50"></td>
+            <th>照片</th>
+            <td>
+                <input type="file" id="imageInput" accept="image/*">
+                <img id="preview" src="#" alt="图片预览" style="display: none;">
+            </td>
+        </tr>
+        <tr>
+            <th>学历</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="高中">高中</option>
+                    <option value="大专">大专</option>
+                    <option value="本科">本科</option>
+                    <option value="硕士">硕士</option>
+                    <option value="博士">博士</option>
+                </select></td>
+            <th>健康状况</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="良好">良好</option>
+                    <option value="一般">一般</option>
+                    <option value="较差">较差</option>
+                </select></td>
+            <th>婚姻状况</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="未婚">未婚</option>
+                    <option value="已婚">已婚</option>
+                    <option value="离异">离异</option>
+                </select></td>
+        </tr>
+        <tr>
+            <th>求职意向</th>
+            <td colspan="3"><select multiple>
+                    <option value="">请选择</option>
+                    <option value="软件工程师">软件工程师</option>
+                    <option value="前端开发">前端开发</option>
+                    <option value="后端开发">后端开发</option>
+                </select></td>
+            <th>专业</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="软件工程">软件工程</option>
+                    <option value="计算机科学与技术">计算机科学与技术</option>
+                </select></td>
+            <th>毕业院校</th>
+            <td><select>
+                    <option value="">请选择</option>
+                    <option value="鲁东大学">鲁东大学</option>
+                    <option value="其他">其他</option>
+                </select></td>
+        </tr>
+    </table>
+    <fieldset>
+        <legend>技能证书</legend>
+        <input type="checkbox"> 英语六级
+        <input type="checkbox"> 计算机二级证书
+        <input type="checkbox"> 教师资格证
+        <input type="checkbox"> IEEE软件工程师认证
+    </fieldset>
+    <fieldset>
+        <legend>个人特长与爱好</legend>
+        <input type="checkbox"> 爱好编程
+        <input type="checkbox"> 羽毛球
+        <input type="checkbox"> 登山
+        <input type="checkbox"> 旅游
+    </fieldset>
+    <textarea placeholder="项目经历" maxlength="500" rows="5"></textarea>
+    <textarea placeholder="自我评价" maxlength="500" rows="5"></textarea>
+    <input type="submit" value="提交">
+    <input type="reset" value="重置">
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const preview = document.getElementById('preview');
+
+        imageInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>    
