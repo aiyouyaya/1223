@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* 整体样式 */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* 简历容器 */
+       .resume-container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 1250px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+       .resume-container:hover {
+            transform: scale(1.03);
+        }
+
+        /* 标题样式 */
+       .header h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #003333;
+            transition: all 0.5s ease;
+        }
+
+       .header h1:hover {
+            transform: translate(10px, 10px) rotate(10deg);
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #e0e0e0;
+            text-align: left;
+            padding: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        th:hover {
+            background-color: #d0d0d0;
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        /* 表单元素样式 */
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:hover,
+        textarea:hover,
+        select:hover {
+            border-color: #007BFF;
+        }
+
+        /* 为项目经历和自我评价的输入框设置样式 */
+       .large-text-input {
+            height: 150px; /* 缩小区域长度 */
+            resize: vertical;
+            overflow: auto;
+            font-size: 16px; /* 放大用户输入的字体 */
+        }
+
+        /* 复选框样式 */
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        /* 按钮样式 */
+       .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+       .button-style {
+            padding: 15px 30px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+       .button-style:hover {
+            background-color: #0056b3;
+            transform: scale(1.08);
+        }
+
+        /* 图标样式 */
+       .icon {
+            margin-right: 5px;
+            vertical-align: middle;
+            transition: all 0.5s ease;
+        }
+
+       .icon:hover {
+            transform: translate(5px, 5px) rotate(10deg);
+        }
+
+        /* 照片预览样式 */
+       .photo-preview {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            font-style: italic;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+       .photo-preview:hover {
+            border-color: #007BFF;
+        }
+
+        /* 图片弹出层样式 */
+       .image-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+       .image-popup img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* 普通单元格宽度 */
+       .normal-cell {
+            width: 10%;
+        }
+
+        /* 项目经历和自我评价单元格宽度 */
+       .large-cell {
+            width: 80%;
+        }
+
+        /* 新增：全宽单元格样式 */
+       .full-width-cell {
+            width: 90%;
+        }
+    </style>
+    <title>个人简历</title>
+</head>
+
+<body>
+    <!-- 整体简历容器 -->
+    <div class="resume-container">
+        <!-- 标题部分 -->
+        <div class="header">
+            <h1>个人简历</h1>
+        </div>
+        <!-- 表单部分 -->
+        <form class="form-section">
+            <table>
+                <!-- 个人信息部分 -->
+                <tr>
+                    <th class="normal-cell">姓名</th>
+                    <td class="normal-cell"><i class="fas fa-user icon"></i><input type="text" placeholder="请输入姓名"></td>
+                    <th class="normal-cell">性别</th>
+                    <td class="normal-cell"><i class="fas fa-mars-venus icon"></i>
+                        <span>
+                            <input type="radio" id="male" name="gender" value="男" checked>
+                            <label for="male">男</label>
+                            <input type="radio" id="female" name="gender" value="女">
+                            <label for="female">女</label>
+                        </span>
+                    </td>
+                    <th class="normal-cell">年龄</th>
+                    <td class="normal-cell"><i class="fas fa-birthday-cake icon"></i><input type="number" placeholder="请输入年龄"></td>
+                </tr>
+                <tr>
+                    <th class="normal-cell">籍贯</th>
+                    <td class="normal-cell"><i class="fas fa-map-marker-alt icon"></i><input type="text" placeholder="请输入籍贯"></td>
+                    <th class="normal-cell">联系电话</th>
+                    <td class="normal-cell"><i class="fas fa-phone icon"></i><input type="tel" placeholder="请输入联系电话"></td>
+                    <th class="normal-cell">电子邮箱</th>
+                    <td class="normal-cell"><i class="fas fa-envelope icon"></i><input type="email" placeholder="请输入电子邮箱"></td>
+                    <th class="normal-cell">照片</th>
+                    <td class="normal-cell">
+                        <i class="fas fa-image icon"></i>
+                        <input type="file" id="photo" onchange="previewPhoto(this)">
+                        <div class="photo-preview" id="photo-preview" onclick="openImagePopup()">
+                            <img src="" style="width:100%;height:100%;object-fit:contain;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="normal-cell">学历</th>
+                    <td class="normal-cell"><i class="fas fa-graduation-cap icon"></i>
+                        <select name="education">
+                            <option value="本科">本科</option>
+                            <option value="大专">大专</option>
+                            <option value="高中">高中</option>
+                            <option value="初中">初中</option>
+                            <option value="小学">小学</option>
+                        </select>
+                    </td>
+                    <th class="normal-cell">健康状况</th>
+                    <td class="normal-cell"><i class="fas fa-heartbeat icon"></i>
+                        <select name="health">
+                            <option value="良好">良好</option>
+                            <option value="一般">一般</option>
+                            <option value="较差">较差</option>
+                        </select>
+                    </td>
+                    <th class="normal-cell">婚姻状况</th>
+                    <td class="normal-cell"><i class="fas fa-ring icon"></i>
+                        <select name="marriage">
+                            <option value="未婚">未婚</option>
+                            <option value="已婚">已婚</option>
+                            <option value="离异">离异</option>
+                        </select>
+                    </td>
+                </tr>
+                <!-- 求职意向等部分 -->
+                <tr>
+                    <th class="normal-cell">求职意向</th>
+                    <td class="normal-cell"><i class="fas fa-briefcase icon"></i>
+                        <select name="intention" multiple>
+                            <option value="软件工程师">软件工程师</option>
+                            <option value="前端开发">前端开发</option>
+                            <option value="后端开发">后端开发</option>
+                        </select>
+                    </td>
+                    <th class="normal-cell">专业</th>
+                    <td class="normal-cell"><i class="fas fa-book icon"></i>
+                        <select name="major">
+                            <option value="软件工程">软件工程</option>
+                            <option value="计算机科学与技术">计算机科学与技术</option>
+                            <option value="网络工程">网络工程</option>
+                        </select>
+                    </td>
+                    <th class="normal-cell">毕业院校</th>
+                    <td class="normal-cell"><i class="fas fa-university icon"></i>
+                        <select name="school">
+                            <option value="鲁东大学">鲁东大学</option>
+                            <option value="清华大学">清华大学</option>
+                            <option value="北京大学">北京大学</option>
+                        </select>
+                    </td>
+                </tr>
+                <!-- 技能证书等部分 -->
+                <tr>
+                    <th class="normal-cell">技能证书</th>
+                    <td colspan="7" class="full-width-cell">
+                        <i class="fas fa-certificate icon"></i>
+                        <input type="checkbox"> 英语六级<br>
+                        <input type="checkbox"> 计算机二级证书<br>
+                        <input type="checkbox"> 教师资格证<br>
+                        <input type="checkbox"> IEEE软件工程师认证
+                    </td>
+                </tr>
+                <tr>
+                    <th class="normal-cell">个人特长与爱好</th>
+                    <td colspan="7" class="full-width-cell">
+                        <i class="fas fa-star icon"></i>
+                        <input type="checkbox"> 爱好编程<br>
+                        <input type="checkbox"> 羽毛球<br>
+                        <input type="checkbox"> 登山<br>
+                        <input type="checkbox"> 旅游
+                    </td>
+                </tr>
+                <tr>
+                    <th class="normal-cell">项目经历</th>
+                    <td colspan="7" class="full-width-cell">
+                        <i class="fas fa-project-diagram icon"></i>
+                        <textarea class="large-text-input" placeholder="请输入项目经历"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="normal-cell">自我评价</th>
+                    <td colspan="7" class="full-width-cell">
+                        <i class="fas fa-user-edit icon"></i>
+                        <textarea class="large-text-input" placeholder="请输入自我评价"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <!-- 按钮部分 -->
+            <div class="button-group">
+                <input type="submit" value="提交" class="button-style">
+                <input type="reset" value="重置" class="button-style">
+            </div>
+        </form>
+    </div>
+    <!-- 图片弹出层 -->
+    <div class="image-popup" id="image-popup">
+        <img id="popup-image" src="" alt="上传的照片">
+    </div>
+    <script>
+        function previewPhoto(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('photo-preview').innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:contain;">';
+                    document.getElementById('popup-image').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function openImagePopup() {
+            var popup = document.getElementById('image-popup');
+            popup.style.display = 'flex';
+            document.addEventListener('click', closeImagePopupOutside);
+        }
+
+        function closeImagePopup() {
+            var popup = document.getElementById('image-popup');
+            popup.style.display = 'none';
+            document.removeEventListener('click', closeImagePopupOutside);
+        }
+
+        function closeImagePopupOutside(event) {
+            var popup = document.getElementById('image-popup');
+            var img = document.getElementById('popup-image');
+            if (event.target!== img &&!img.contains(event.target)) {
+                closeImagePopup();
+            }
+        }
+    </script>
+</body>
+
+</html>
