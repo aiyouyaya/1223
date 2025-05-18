@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七彩霓虹灯</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .light {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .light::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(8px);
+        }
+        
+        .light::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0.6;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #start-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #start-btn:hover {
+            background-color: #45a049;
+        }
+        
+        #stop-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        #stop-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .speed-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #speed-value {
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 5px;
+            background: #333;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="light-container">
+        <!-- 霓虹灯将通过JavaScript动态生成 -->
+    </div>
+    
+    <div class="controls">
+        <div class="btn-group">
+            <button id="start-btn">启动</button>
+            <button id="stop-btn" disabled>停止</button>
+        </div>
+        
+        <div class="speed-controls">
+            <label for="speed-control">速度:</label>
+            <input type="range" id="speed-control" min="200" max="2000" value="1000" step="100">
+            <span id="speed-value">1000ms</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 定义七种霓虹灯光色
+            const colors = [
+                '#FF0000', // 红
+                '#FF7F00', // 橙
+                '#FFFF00', // 黄
+                '#005500', // 绿
+                '#00aaff', // 蓝
+                '#0000ff', // 靛
+                '#9400D3'  // 紫
+            ];
+            
+            // 创建7个霓虹灯
+            const lightContainer = document.getElementById('light-container');
+            for (let i = 0; i < 7; i++) {
+                const light = document.createElement('div');
+                light.id = `light-${i}`;
+                light.className = 'light';
+                lightContainer.appendChild(light);
+            }
+            
+            // 存储每个灯的当前颜色索引
+            const lightStates = Array(7).fill(0).map((_, index) => index);
+            
+            // 初始化灯光颜色
+            updateLights();
+            
+            // 定时器ID和速度设置
+            let intervalId = null;
+            let currentSpeed = 1000; // 默认速度1000ms
+            
+            // 按钮和滑块元素
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const speedControl = document.getElementById('speed-control');
+            const speedValue = document.getElementById('speed-value');
+            
+            // 启动按钮事件
+            startBtn.addEventListener('click', () => {
+                if (intervalId === null) {
+                    startLights();
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                }
+            });
+            
+            // 停止按钮事件
+            stopBtn.addEventListener('click', () => {
+                if (intervalId !== null) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                    startBtn.disabled = false;
+                    stopBtn.disabled = true;
+                }
+            });
+            
+            // 速度控制事件
+            speedControl.addEventListener('input', () => {
+                currentSpeed = parseInt(speedControl.value);
+                speedValue.textContent = `${currentSpeed}ms`;
+                
+                // 如果灯正在运行，重新启动定时器
+                if (intervalId !== null) {
+                    clearInterval(intervalId);
+                    intervalId = setInterval(rotateLights, currentSpeed);
+                }
+            });
+            
+            // 启动灯光变化
+            function startLights() {
+                intervalId = setInterval(rotateLights, currentSpeed);
+            }
+            
+            // 旋转灯光颜色
+            function rotateLights() {
+                // 增加每个灯的颜色索引
+                for (let i = 0; i < lightStates.length; i++) {
+                    lightStates[i] = (lightStates[i] + 1) % 7;
+                }
+                
+                // 确保所有灯颜色不同
+                ensureUniqueColors();
+                
+                // 更新灯光显示
+                updateLights();
+            }
+            
+            // 确保所有灯颜色不同
+            function ensureUniqueColors() {
+                const usedColors = new Set();
+                const tempStates = [...lightStates];
+                
+                for (let i = 0; i < tempStates.length; i++) {
+                    // 如果颜色已被使用，则寻找下一个未使用的颜色
+                    while (usedColors.has(tempStates[i])) {
+                        tempStates[i] = (tempStates[i] + 1) % 7;
+                    }
+                    usedColors.add(tempStates[i]);
+                }
+                
+                // 只有在确实存在重复颜色的情况下才更新
+                if (new Set(lightStates).size !== lightStates.length) {
+                    lightStates.splice(0, lightStates.length, ...tempStates);
+                }
+            }
+            
+            // 更新灯光显示
+            function updateLights() {
+                for (let i = 0; i < 7; i++) {
+                    const light = document.getElementById(`light-${i}`);
+                    const color = colors[lightStates[i]];
+                    
+                    // 设置主颜色
+                    light.style.backgroundColor = color;
+                    
+                    // 设置发光效果
+                    const beforeElement = document.createElement('style');
+                    beforeElement.textContent = `
+                        #light-${i}::before {
+                            background-color: ${color};
+                            box-shadow: 0 0 15px 5px ${color};
+                        }
+                    `;
+                    document.head.appendChild(beforeElement);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    
