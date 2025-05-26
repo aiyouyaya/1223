@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级随机点名系统</title>
+    <link rel="stylesheet" href="Lab8-2401-310.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>班级随机点名系统</h1>
+            <p>公平公正 · 随机抽取</p>
+        </header>
+
+        <div class="display-container">
+            <div class="display-area" id="displayArea">点击开始按钮随机点名</div>
+
+            <div class="controls">
+                <button id="startBtn" class="btn btn-start">
+                    <i class="fa fa-play"></i> 开始
+                </button>
+                <button id="stopBtn" class="btn btn-stop" disabled>
+                    <i class="fa fa-stop"></i> 停止
+                </button>
+            </div>
+        </div>
+
+        <div class="student-list-container">
+            <h2 class="student-list-title">
+                <span>班级学生名单</span>
+                <span class="student-count" id="studentCount">0人</span>
+            </h2>
+
+            <ul class="student-list" id="studentList"></ul>
+        </div>
+
+        <footer>
+            © 前端开发技术点名系统
+        </footer>
+    </div>
+    <script src="Lab8-2401-310.js"></script>
+</body>
+
+</html>
